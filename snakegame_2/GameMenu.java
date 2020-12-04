@@ -59,6 +59,7 @@ class GameMenu extends JPanel {
       this.panel = panel;
       setPreferredSize(new Dimension(width, height));
       setLayout(null);
+      setFocusable(false);
       setBackground(Color.black);
       addExitButton();
       addSettingsButton();
@@ -79,11 +80,11 @@ class GameMenu extends JPanel {
       exit.setIcon(exitIcon);
       exit.addMouseListener(new MouseAdapter() {
          @Override
-         public void mousePressed(MouseEvent ev) {
-            System.exit(0);
+         public void mousePressed(MouseEvent ev) { // exit program
+            System.exit(0); 
          }
          @Override
-         public void mouseEntered(MouseEvent ev) {
+         public void mouseEntered(MouseEvent ev) { 
             exit.setIcon(exitHoverIcon);
             exit.setCursor(new Cursor(Cursor.HAND_CURSOR));
          }
@@ -113,16 +114,16 @@ class GameMenu extends JPanel {
       settings.addMouseListener(new MouseAdapter() {
          @Override
          public void mousePressed(MouseEvent ev) {
-            settingsDisplayed = settingsDisplayed ? false : true;
-            if(settingsDisplayed) {
+            if(settingsDisplayed) { // show board
                settings.setIcon(backHoverIcon);
                settings.setToolTipText("BACK");
                panel.showBoard();
-            }else {
+            }else { // show settings
                settings.setIcon(settingsHoverIcon);
                settings.setToolTipText("SETTINGS");
                panel.showSettings();
             }
+            settingsDisplayed = settingsDisplayed ? false : true; // change condition
          }
          @Override
          public void mouseEntered(MouseEvent ev) {
@@ -154,16 +155,16 @@ class GameMenu extends JPanel {
       Font font = new Font("MONOSPACED", Font.BOLD, 50);
       title.setFont(font);
       title.setForeground(Color.white);
-      String str = "Snake";
+      String str = "Snake"; // title text
       FontMetrics fm = title.getFontMetrics(font);
-      int strWidth = fm.stringWidth(str);
+      int strWidth = fm.stringWidth(str); // get the text width
       int x = width / 2 - strWidth / 2;
       title.setText(str);
       Rectangle r = new Rectangle(x, 0, strWidth, height);
       title.setBounds(r);
       title.addMouseListener(new MouseAdapter() {
          @Override
-         public void mouseEntered(MouseEvent ev) {
+         public void mouseEntered(MouseEvent ev) { // generate a random color.
             title.setCursor(new Cursor(Cursor.HAND_CURSOR));
             title.setForeground(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
          }

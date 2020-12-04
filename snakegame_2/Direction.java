@@ -7,7 +7,7 @@
  * 
  * 
  */
-package snakegame;
+package snakegame_2;
 
 /**
  * A collection of directions in which the snake can be moving.

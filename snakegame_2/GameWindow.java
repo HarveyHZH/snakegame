@@ -10,6 +10,7 @@
 package snakegame_2;
 
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 
 /**
@@ -42,17 +43,47 @@ final class GameWindow extends JFrame {
       windowWidth = (int) screenSize.getWidth() / 2;
       windowHeight = (int) screenSize.getHeight() / 2 + 50;
       setDefaultCloseOperation(EXIT_ON_CLOSE);
-      setFocusable(false);
+      setFocusable(true);
       setAlwaysOnTop(true);
       setUndecorated(true);
       setIconImage(new ImageIcon("img/snake_game_icon.jpg").getImage());
       GamePanel panel = new GamePanel();
+      panel.showBoard();
       GameMenu menu = new GameMenu(panel);
       add(menu, BorderLayout.PAGE_START);
       add(panel, BorderLayout.CENTER);
       pack();
       setLocationRelativeTo(null);
       setVisible(true);
+      addKeyListener(new KeyAction());
+   }
+
+   /**
+    * Changes direction if desired keys are pressed.
+    */
+   private class KeyAction extends KeyAdapter {
+      @Override
+      public void keyPressed(KeyEvent ev) {
+         if(ev.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            System.exit(0);
+         }else if(ev.getKeyCode() == KeyEvent.VK_UP || ev.getKeyCode() == KeyEvent.VK_W) {
+            if(GameBoard.direction != Direction.DOWN) {
+               GameBoard.direction = Direction.UP;
+            }
+         }else if(ev.getKeyCode() == KeyEvent.VK_DOWN || ev.getKeyCode() == KeyEvent.VK_S) {
+            if(GameBoard.direction != Direction.UP) {
+               GameBoard.direction = (Direction.DOWN);
+            }
+         }else if(ev.getKeyCode() == KeyEvent.VK_LEFT || ev.getKeyCode() == KeyEvent.VK_A) {
+            if(GameBoard.direction != Direction.RIGHT) {
+               GameBoard.direction = Direction.LEFT;
+            }
+         }else if(ev.getKeyCode() == KeyEvent.VK_RIGHT || ev.getKeyCode() == KeyEvent.VK_D) {
+            if(GameBoard.direction != Direction.LEFT) {
+               GameBoard.direction = Direction.RIGHT;
+            }
+         }
+      }
    }
 }
 

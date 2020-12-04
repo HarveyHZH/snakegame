@@ -20,12 +20,20 @@ import javax.swing.*;
 class GameSettings extends JPanel {
 
    /**
-    *
+    * Serial version UID.
     */
    private static final long serialVersionUID = 7675202987170119697L;
    
+   /**
+    * Constructs a settings panel.
+    * @param preferredSize
+    */
    GameSettings(Dimension preferredSize) {
       setPreferredSize(preferredSize);
-      setBackground(Color.green);
+      setBackground(Color.black);
+      setFocusable(false);
+      //test
+      JButton b = new JButton("chnge");
+      //b.addActionListener(ev -> );
    }
 }
