@@ -25,16 +25,22 @@ final class GameWindow extends JFrame {
    private static final long serialVersionUID = 6373568088258070351L;
 
    /**
-    * Window size.
+    * Window width.
     */
-   static Dimension size;
+   static int windowWidth;
+
    /**
-    * constructs a window.
+    * Window height.
+    */
+   static int windowHeight;
+
+   /**
+    * Constructs a window.
     */
    GameWindow() {
       Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-      size = new Dimension((int) screenSize.getWidth() / 2, (int) screenSize.getHeight() / 2 + 50);
-      setPreferredSize(size);
+      windowWidth = (int) screenSize.getWidth() / 2;
+      windowHeight = (int) screenSize.getHeight() / 2 + 50;
       setDefaultCloseOperation(EXIT_ON_CLOSE);
       setFocusable(false);
       setAlwaysOnTop(true);

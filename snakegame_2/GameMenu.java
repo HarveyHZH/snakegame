@@ -11,6 +11,7 @@ package snakegame_2;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.*;
 import javax.swing.*;
 
 /**
@@ -28,15 +29,28 @@ class GameMenu extends JPanel {
    /**
     * Width.
     */
-   private int width;
+   private int width = GameWindow.windowWidth;
 
    /**
     * Height set to 50.
     */
    private int height = 50;
 
+   /**
+    * Settings displayed set to false.
+    */
+   private boolean settingsDisplayed = false;
+
+   /**
+    * Random number.
+    */
+   private Random random;
+
+   /**
+    * Constructs a menu.
+    */
    GameMenu() {
-      width = (int) GameWindow.size.getWidth();
+      random = new Random();
       setPreferredSize(new Dimension(width, height));
       setLayout(null);
       setBackground(Color.black);
@@ -45,6 +59,9 @@ class GameMenu extends JPanel {
       addTitle();
    }
 
+   /**
+    * Adds an exit button to the menu.
+    */
    private void addExitButton() {
       JLabel exit = new JLabel();
       exit.setToolTipText("EXIT");
@@ -62,53 +79,95 @@ class GameMenu extends JPanel {
          @Override
          public void mouseEntered(MouseEvent ev) {
             exit.setIcon(exitHoverIcon);
+            exit.setCursor(new Cursor(Cursor.HAND_CURSOR));
          }
          @Override
          public void mouseExited(MouseEvent ev) {
             exit.setIcon(exitIcon);
+            exit.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
          }
       });
       add(exit);
    }
 
+   /**
+    * Adds a settings button to the menu.
+    */
    private void addSettingsButton() {
       JLabel settings = new JLabel();
-      settings.setToolTipText("SETTINGS");
       ImageIcon settingsIcon = new ImageIcon("img/settings_button.jpg");
       ImageIcon settingsHoverIcon = new ImageIcon("img/settings_button_hover.jpg");
+      ImageIcon backIcon = new ImageIcon("img/back_button.jpg");
+      ImageIcon backHoverIcon = new ImageIcon("img/back_button_hover.jpg");
       int deltaX = height;
       Rectangle r = new Rectangle(0, 0, deltaX, height);
       settings.setBounds(r);
-      settings.setIcon(settingsIcon);
+      if(settingsDisplayed) {
+         settings.setIcon(backIcon);
+         settings.setToolTipText("BACK");
+      } else {
+         settings.setIcon(settingsIcon);
+         settings.setToolTipText("SETTINGS");
+      }
       settings.addMouseListener(new MouseAdapter() {
          @Override
          public void mousePressed(MouseEvent ev) {
-
+            settingsDisplayed = settingsDisplayed ? false : true;
+            if(settingsDisplayed) {
+               settings.setIcon(backHoverIcon);
+            }else {
+               settings.setIcon(settingsHoverIcon);
+            }
          }
          @Override
          public void mouseEntered(MouseEvent ev) {
-            settings.setIcon(settingsHoverIcon);
+            settings.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            if(settingsDisplayed) {
+               settings.setIcon(backHoverIcon);
+            }else {
+               settings.setIcon(settingsHoverIcon);
+            }
          }
          @Override
          public void mouseExited(MouseEvent ev) {
-            settings.setIcon(settingsIcon);
+            settings.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            if(settingsDisplayed) {
+               settings.setIcon(backIcon);
+            }else {
+               settings.setIcon(settingsIcon);
+            }
          }
       });
       add(settings);
    }
 
+   /**
+    * Adds the title "Snake Game".
+    */
    private void addTitle() {
       JLabel title = new JLabel();
       Font font = new Font("MONOSPACED", Font.BOLD, 50);
       title.setFont(font);
       title.setForeground(Color.white);
-      String str = "Snake Game";
+      String str = "Snake";
       FontMetrics fm = title.getFontMetrics(font);
       int strWidth = fm.stringWidth(str);
       int x = width / 2 - strWidth / 2;
       title.setText(str);
       Rectangle r = new Rectangle(x, 0, strWidth, height);
       title.setBounds(r);
+      title.addMouseListener(new MouseAdapter() {
+         @Override
+         public void mouseEntered(MouseEvent ev) {
+            title.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            title.setForeground(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
+         }
+         @Override
+         public void mouseExited(MouseEvent ev) {
+            title.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            title.setForeground(Color.white);
+         }
+      });
       add(title);
    }
 }

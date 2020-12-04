@@ -24,9 +24,21 @@ class GamePanel extends JPanel {
     */
    private static final long serialVersionUID = -6087019656836491039L;
    
+   /**
+    * Width.
+    */
+   private int width = GameWindow.windowWidth;
+
+   /**
+    * Height.
+    */
+   private int height = GameWindow.windowHeight - 50;
+
+   /**
+    * 
+    */
    GamePanel() {
-      setPreferredSize(new Dimension((int) GameWindow.size.getWidth(), (int) GameWindow.size.getHeight() - 50));
+      setPreferredSize(new Dimension(width, height));
       setBackground(Color.black);
    }
-
 }
