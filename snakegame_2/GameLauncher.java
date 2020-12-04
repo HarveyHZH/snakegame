@@ -7,25 +7,24 @@
  * 
  * 
  */
-package snakegame;
+package snakegame_2;
 
 import javax.swing.*;
 
 /**
- * public class that executes the game.
  * @author Zhihao Huang
- * @since 12-02-2020
- * @version 1.0
+ * @since 12-04-2020
+ * @version 2.0
  */
 public final class GameLauncher {
    
    /**
-    * empty constructor.
+    * Empty constructor that is not accessible for other classes.
     */
    GameLauncher() {}
-
+   
    /**
-    * a public static method that executes the game.
+    * Calls the constructor of the Window class using <code>invokeLater</code> for thread safety.
     */
     public static void launch() {
       SwingUtilities.invokeLater(new Runnable() {
@@ -35,5 +34,12 @@ public final class GameLauncher {
          }
       });
    }
-
+   
+   /**
+    * Executes the program.
+    * @param args Unused.
+    */
+   public static void main(String[] args) {
+      launch();
+   }
 }

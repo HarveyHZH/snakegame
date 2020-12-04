@@ -19,7 +19,7 @@ import javax.swing.*;
  * the class that contains the game board for the snake game.
  * @author Zhihao Huang
  * @since 12-01-2020
- * @version 2.0
+ * @version 1.0
  */
 final class GameBoard extends JPanel {
 
@@ -90,12 +90,13 @@ final class GameBoard extends JPanel {
    GameBoard() {
       screenSize = new Dimension((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2,
       (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2);
-      setFocusable(false);
+      setFocusable(true);
       setBackground(Color.black);
       setPreferredSize(screenSize);
       initSnake();
       generateRandom();
       moveSnake(100);
+      addKeyListener(new KeyAction());
    }
    
    boolean getTimerState() {

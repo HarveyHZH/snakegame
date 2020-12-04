@@ -17,7 +17,7 @@ import javax.swing.*;
  * the class that contains the menu for the snake game.
  * @author Zhihao Huang
  * @since 12-04-2020
- * @version 2.0
+ * @version 1.0
  */
 final class GameMenu extends JPanel {
 
