@@ -4,4 +4,3 @@ contains settings:
    apple color
    difficulty
    sound effect?
-   screen size

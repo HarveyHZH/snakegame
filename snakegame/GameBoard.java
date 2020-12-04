@@ -56,17 +56,17 @@ final class GameBoard extends JPanel {
    /**
     * snake color.
     */
-   private Color snakeColor = Color.white;
+   private static Color snakeColor = Color.white;
 
    /**
     * apple color.
     */
-   private Color appleColor = Color.red;
+   private static Color appleColor = Color.red;
 
    /**
     * color used to hide text until the end.
     */
-   private Color endColor = Color.black;
+   private static Color endColor = Color.black;
 
    /**
     * timer for animation.

@@ -47,10 +47,16 @@ class GameMenu extends JPanel {
    private Random random;
 
    /**
+    * Game panel.
+    */
+   private GamePanel panel;
+
+   /**
     * Constructs a menu.
     */
-   GameMenu() {
+   GameMenu(GamePanel panel) {
       random = new Random();
+      this.panel = panel;
       setPreferredSize(new Dimension(width, height));
       setLayout(null);
       setBackground(Color.black);
@@ -101,22 +107,21 @@ class GameMenu extends JPanel {
       ImageIcon backHoverIcon = new ImageIcon("img/back_button_hover.jpg");
       int deltaX = height;
       Rectangle r = new Rectangle(0, 0, deltaX, height);
-      settings.setBounds(r);
-      if(settingsDisplayed) {
-         settings.setIcon(backIcon);
-         settings.setToolTipText("BACK");
-      } else {
-         settings.setIcon(settingsIcon);
-         settings.setToolTipText("SETTINGS");
-      }
+      settings.setBounds(r); 
+      settings.setIcon(settingsIcon);
+      settings.setToolTipText("SETTINGS");
       settings.addMouseListener(new MouseAdapter() {
          @Override
          public void mousePressed(MouseEvent ev) {
             settingsDisplayed = settingsDisplayed ? false : true;
             if(settingsDisplayed) {
                settings.setIcon(backHoverIcon);
+               settings.setToolTipText("BACK");
+               panel.showBoard();
             }else {
                settings.setIcon(settingsHoverIcon);
+               settings.setToolTipText("SETTINGS");
+               panel.showSettings();
             }
          }
          @Override
