@@ -19,7 +19,7 @@ import javax.swing.*;
  * the class that contains the game board for the snake game.
  * @author Zhihao Huang
  * @since 12-01-2020
- * @version 1.0
+ * @version 2.0
  */
 final class GameBoard extends JPanel {
 
@@ -36,7 +36,7 @@ final class GameBoard extends JPanel {
    /**
     * screen size.
     */
-   private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+   static Dimension screenSize;
 
    /**
     * fixed length of one snake block.
@@ -83,25 +83,60 @@ final class GameBoard extends JPanel {
     */
    private int appleX, appleY;
 
+   private boolean timerIsActive;
    /**
     * constructs a game board.
     */
    GameBoard() {
+      screenSize = new Dimension((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2,
+      (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2);
+      setFocusable(false);
       setBackground(Color.black);
       setPreferredSize(screenSize);
       initSnake();
       generateRandom();
       moveSnake(100);
    }
+   
+   boolean getTimerState() {
+      return timerIsActive;
+   }
+   void stopTimer() {
+      timer.cancel();
+      timerIsActive = false;
+   }
+
+   void startTimer(int speed) {
+      timer = new Timer();
+      timer.schedule(new Task(), 100, speed);
+      timerIsActive = true;
+   }
 
    /**
     * generates a random number. 
     */
     private void generateRandom() {
+      
       int multiplierX = (int) screenSize.getWidth() / LENGTH;
       int multiplierY = (int) screenSize.getHeight() / LENGTH;
-      appleX = LENGTH * r.nextInt(multiplierX);
-      appleY = LENGTH * r.nextInt(multiplierY);
+      do {
+         appleX = LENGTH * r.nextInt(multiplierX);
+         appleY = LENGTH * r.nextInt(multiplierY);
+      }while(!appleAcceptable());
+   }
+
+   /**
+    * test if apple's location is acceptable.
+    * @return true if location is acceptable and vice versa.
+    */
+   private boolean appleAcceptable() {
+      boolean b = true;
+      for(int i = 0; i < snakeLength; i++) {
+         if(x[i] == appleX && y[i] == appleY) {
+            b = false;
+         }
+      }
+      return b;
    }
 
    /**
@@ -143,54 +178,60 @@ final class GameBoard extends JPanel {
       }
       return false;
    }
-
+   
    /**
     * moves the snake at a given speed.
     * @param speed snake's speed
     */
    private void moveSnake(int speed) {
-      timer = new Timer();
-      timer.schedule(new TimerTask() {
-         @Override
-         public void run() {
-            if(isColliding()) { // test if snake is colliding.
-               snakeColor = Color.black;
-               appleColor = Color.black;
-               endColor = Color.white;
-               appleX = 0;
-               appleY = 0;
-               for(int i = 0; i < x.length; i++) {
-                  x[i] = 0;
-               }
-               for(int i = 0; i < y.length; i++) {
-                  y[i] = 0;
-               }
-               repaint();
-               timer.cancel();
+      startTimer(speed);
+      stopTimer();
+      startTimer(speed);
+   }
+
+   /**
+    * inner class that contains the timer task.
+    */
+   private class Task extends TimerTask {
+      @Override
+      public void run() {
+         if(isColliding()) { // test if snake is colliding.
+            snakeColor = Color.black;
+            appleColor = Color.black;
+            endColor = Color.white;
+            appleX = 0;
+            appleY = 0;
+            for(int i = 0; i < x.length; i++) {
+               x[i] = 0;
             }
-            for(int i = snakeLength; i > 0; i--) {
-               x[i] = x[i - 1];
-               y[i] = y[i - 1];
-            }
-            switch (direction) {
-               case UP:
-                  y[0] -= LENGTH;
-                  break;
-               case DOWN:
-                  y[0] += LENGTH;
-                  break;
-               case LEFT:
-                  x[0] -= LENGTH;
-                  break;
-               case RIGHT:
-                  x[0] += LENGTH;
-                  break;
-               default:
-                  break;
+            for(int i = 0; i < y.length; i++) {
+               y[i] = 0;
             }
             repaint();
+            timer.cancel();
          }
-      }, 0, speed);
+         for(int i = snakeLength; i > 0; i--) {
+            x[i] = x[i - 1];
+            y[i] = y[i - 1];
+         }
+         switch (direction) {
+            case UP:
+               y[0] -= LENGTH;
+               break;
+            case DOWN:
+               y[0] += LENGTH;
+               break;
+            case LEFT:
+               x[0] -= LENGTH;
+               break;
+            case RIGHT:
+               x[0] += LENGTH;
+               break;
+            default:
+               break;
+         }
+         repaint();
+      }
    }
 
    /**
@@ -237,13 +278,13 @@ final class GameBoard extends JPanel {
       int width = fontMetrics.stringWidth(gameOver);
       int ascent = fontMetrics.getAscent();
       int messageX = (int) screenSize.getWidth() / 2 - width / 2;
-      int messageY = (int) screenSize.getHeight() / 2 + ascent / 2;
+      int messageY = (int) screenSize.getHeight() / 3 + ascent / 2;
       g.drawString(gameOver, messageX, messageY); // displays game over
       g.setFont(new Font("MONOSPACED", Font.BOLD, 25));
       fontMetrics = g.getFontMetrics();
       width = fontMetrics.stringWidth(score);
       messageX = (int) screenSize.getWidth() / 2 - width / 2;
-      messageY = (int) screenSize.getHeight() / 2 + 2 * ascent;
+      messageY = (int) screenSize.getHeight() / 2 + ascent / 2;
       g.drawString(score, messageX, messageY); // display score
    }
 

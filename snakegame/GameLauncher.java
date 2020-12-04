@@ -35,4 +35,9 @@ public final class GameLauncher {
          }
       });
    }
+
+   //tmp main
+   public static void main(String[] args) {
+      GameLauncher.launch();
+   }
 }

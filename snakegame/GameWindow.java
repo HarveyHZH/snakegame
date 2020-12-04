@@ -9,6 +9,7 @@
  */
 package snakegame;
 
+import java.awt.BorderLayout;
 import java.awt.event.*;
 import javax.swing.*;
 
@@ -16,7 +17,7 @@ import javax.swing.*;
  * the class that contains the window for the game board.
  * @author Zhihao Huang
  * @since 12-01-2020
- * @version 1.0
+ * @version 2.0
  */
 final class GameWindow extends JFrame {
 
@@ -30,9 +31,27 @@ final class GameWindow extends JFrame {
     */
    GameWindow() {
       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      setFocusable(true);
       setAlwaysOnTop(true);
+      setIconImage(new ImageIcon("img/snake_game_icon.jpg").getImage());
       setUndecorated(true);
-      add(new GameBoard());
+      GamePanel gp = new GamePanel();
+      JMenuBar mb = new JMenuBar();
+      JMenuItem mi = new JMenuItem("asdf");
+      GameBoard gb = new GameBoard();
+      mi.addActionListener(new ActionListener() {
+         @Override
+         public void actionPerformed(ActionEvent ev) {
+            if(gb.getTimerState()) {
+               gb.stopTimer();
+            }else {
+               gb.startTimer(100);
+            }
+         }
+      });
+      mb.add(mi);
+      add(mb, BorderLayout.PAGE_START);
+      add(gb, BorderLayout.CENTER);
       addKeyListener(new KeyAction());
       addMouseListener(new MouseAction());
       pack();
@@ -40,11 +59,14 @@ final class GameWindow extends JFrame {
       setVisible(true);
    }
 
+   // !!!!!
+   // to be removed.
+   // !!!!!
    /**
     * inner class that contains mouse actions.
     */
    private class MouseAction extends MouseAdapter {
-      @Override
+      @Deprecated
       public void mouseClicked(MouseEvent ev) {
          if(ev.getClickCount() == 2) {
             System.exit(0);
