@@ -53,7 +53,7 @@ class GamePanel extends JPanel {
       setLayout(new CardLayout());
       setFocusable(false);
       board = new GameBoard(new Dimension(width, height));
-      settings = new GameSettings(new Dimension(width, height));
+      settings = new GameSettings(new Dimension(width, height), board);
       add(board, "board");
       add(settings, "settings");
    }

@@ -115,13 +115,13 @@ class GameMenu extends JPanel {
          @Override
          public void mousePressed(MouseEvent ev) {
             if(settingsDisplayed) { // show board
-               settings.setIcon(backHoverIcon);
-               settings.setToolTipText("BACK");
-               panel.showBoard();
-            }else { // show settings
                settings.setIcon(settingsHoverIcon);
                settings.setToolTipText("SETTINGS");
-               panel.showSettings();
+               panel.showBoard();
+            }else { // show settings
+               settings.setIcon(backHoverIcon);
+               settings.setToolTipText("RESUME");
+               panel.showSettings();              
             }
             settingsDisplayed = settingsDisplayed ? false : true; // change condition
          }

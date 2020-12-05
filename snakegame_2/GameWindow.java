@@ -56,6 +56,7 @@ final class GameWindow extends JFrame {
       setLocationRelativeTo(null);
       setVisible(true);
       addKeyListener(new KeyAction());
+      changeLookAndFeel();
    }
 
    /**
@@ -84,6 +85,18 @@ final class GameWindow extends JFrame {
             }
          }
       }
+   }
+
+   /**
+    * Changes the look and feel to windows.
+    */
+   private void changeLookAndFeel() {
+      try {
+         UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+      }catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+         e.printStackTrace();
+      }
+      SwingUtilities.updateComponentTreeUI(this);
    }
 }
 

@@ -40,7 +40,7 @@ class GameBoard extends JPanel {
    /**
     * The direction in which the snake is going, with right as its default.
     */
-   static Direction direction = Direction.RIGHT;
+   static Direction direction;
  
    /**
     * Fixed length of one snake block.
@@ -48,7 +48,7 @@ class GameBoard extends JPanel {
    private final int LENGTH = 20;
 
    /**
-    * Initial snake length.
+    * Initial snake length set to 2.
     */
    private int snakeLength = 2;
 
@@ -58,12 +58,12 @@ class GameBoard extends JPanel {
    private int[] x, y;
 
    /**
-    * Snake color.
+    * Snake color set to white.
     */
    private Color snakeColor = Color.white;
 
    /**
-    * Apple color.
+    * Apple color set to red.
     */
    private Color appleColor = Color.red;
 
@@ -71,6 +71,11 @@ class GameBoard extends JPanel {
     * Color used to hide text until the end.
     */
    private Color endColor = Color.black;
+
+   /**
+    * Background color set to black.
+    */
+   private Color backgroundColor = Color.black;
 
    /**
     * Timer for animation.
@@ -90,21 +95,46 @@ class GameBoard extends JPanel {
    /**
     * The speed at which the snake moves.
     */
-   private int speed = 100;
+   private int speed;
 
    /**
     * Constructs a game board.
     * @param preferredSize
     */
    GameBoard(Dimension preferredSize) {
+      direction = Direction.RIGHT;
+      speed = 100;
       width = (int) preferredSize.getWidth();
       height = (int) preferredSize.getHeight();
       setPreferredSize(preferredSize);
-      setBackground(Color.red);
       setFocusable(false);
-      setBackground(Color.black);
+      setBackground(backgroundColor);
       initSnake();
       generateRandom();
+   }
+
+   /**
+    * Changes the snake color.
+    * @param c snake color.
+    */
+   void changeSnakeColor(Color c) {
+      snakeColor = c;
+   }
+
+   /**
+    * Changes the apple color.
+    * @param c apple color.
+    */
+   void changeAppleColor(Color c) {
+      appleColor = c;
+   }
+
+   /**
+    * Changes the difficulty by changing snake's speed.
+    * @param s snake speed.
+    */
+   void changeDifficulty(int s) {
+      speed = s;
    }
 
    /**
@@ -171,8 +201,8 @@ class GameBoard extends JPanel {
       @Override
       public void run() {
          if(isColliding()) { // test if snake is colliding.
-            snakeColor = Color.black;
-            appleColor = Color.black;
+            snakeColor = backgroundColor;
+            appleColor = backgroundColor;
             endColor = Color.white;
             appleX = 0;
             appleY = 0;
@@ -252,7 +282,8 @@ class GameBoard extends JPanel {
     * @param g graphics
     */
    private void drawBorder(Graphics g) {
-      g.setColor(Color.white);
+      Color borderColor = Color.white;
+      g.setColor(borderColor);
       g.drawRect(0, 0, width - 1, height - 1);
    }
 
