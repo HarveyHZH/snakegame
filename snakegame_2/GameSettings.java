@@ -61,7 +61,7 @@ class GameSettings extends JPanel {
       addPlaceHolder();
    }
 
-/**
+   /**
     * Adds an empty label to create space.
     */
    private void addPlaceHolder() {
