@@ -10,7 +10,6 @@
 package snakegame_2;
 
 import java.awt.*;
-import java.awt.event.*;
 import java.util.*;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -89,9 +88,9 @@ class GameBoard extends JPanel {
    private int appleX, appleY;
  
    /**
-    * Timer is active set to false. 
+    * The speed at which the snake moves.
     */
-   private boolean timerIsActive = false;
+   private int speed = 100;
 
    /**
     * Constructs a game board.
@@ -106,7 +105,6 @@ class GameBoard extends JPanel {
       setBackground(Color.black);
       initSnake();
       generateRandom();
-      moveSnake(100);
    }
 
    /**
@@ -152,39 +150,18 @@ class GameBoard extends JPanel {
    }
 
    /**
-    * moves the snake at a given speed.
-    * @param speed snake's speed
-    */
-   private void moveSnake(int speed) {
-      startTimer(speed);
-      stopTimer();
-      startTimer(speed);
-   }
-
-   /**
-    * Gets the timer's state.
-    * @return true if timer is active and vice versa.
-    */
-   boolean getTimerState() {
-      return timerIsActive;
-   }
-
-   /**
     * Stops the timer.
     */
    void stopTimer() {
       timer.cancel();
-      timerIsActive = false;
    }
 
    /**
-    * Starts the timer;
-    * @param speed
+    * Starts the timer.
     */
-   void startTimer(int speed) {
+   void startTimer() {
       timer = new Timer();
-      timer.schedule(new Task(), 100, speed);
-      timerIsActive = true;
+      timer.schedule(new Task(), 0, speed);
    }
 
    /**
@@ -267,7 +244,7 @@ class GameBoard extends JPanel {
       displayResults(g);
       drawSnake(g);
       drawApple(g);
-      //drawBorder(g);
+      drawBorder(g);
    }
 
    /**

@@ -63,6 +63,7 @@ class GamePanel extends JPanel {
     */
    void showBoard() {
       CardLayout cardLayout = (CardLayout) this.getLayout();
+      board.startTimer();
       cardLayout.show(this, "board");
    }
 
@@ -71,6 +72,7 @@ class GamePanel extends JPanel {
     */
    void showSettings() {
       CardLayout cardLayout = (CardLayout) this.getLayout();
+      board.stopTimer();
       cardLayout.show(this, "settings");
    }
 }

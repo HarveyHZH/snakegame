@@ -60,7 +60,7 @@ class GameMenu extends JPanel {
       setPreferredSize(new Dimension(width, height));
       setLayout(null);
       setFocusable(false);
-      setBackground(Color.black);
+      setBackground(Color.white);
       addExitButton();
       addSettingsButton();
       addTitle();
@@ -154,7 +154,7 @@ class GameMenu extends JPanel {
       JLabel title = new JLabel();
       Font font = new Font("MONOSPACED", Font.BOLD, 50);
       title.setFont(font);
-      title.setForeground(Color.white);
+      title.setForeground(Color.black);
       String str = "Snake"; // title text
       FontMetrics fm = title.getFontMetrics(font);
       int strWidth = fm.stringWidth(str); // get the text width
@@ -171,7 +171,7 @@ class GameMenu extends JPanel {
          @Override
          public void mouseExited(MouseEvent ev) {
             title.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-            title.setForeground(Color.white);
+            title.setForeground(Color.black);
          }
       });
       add(title);
