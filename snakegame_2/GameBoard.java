@@ -183,7 +183,9 @@ class GameBoard extends JPanel {
     * Stops the timer.
     */
    void stopTimer() {
-      timer.cancel();
+      if(timer != null) {
+         timer.cancel();
+      }
    }
 
    /**

@@ -48,7 +48,7 @@ final class GameWindow extends JFrame {
       setUndecorated(true);
       setIconImage(new ImageIcon("img/snake_game_icon.jpg").getImage());
       GamePanel panel = new GamePanel();
-      panel.showBoard();
+      panel.showSettings();
       GameMenu menu = new GameMenu(panel);
       add(menu, BorderLayout.PAGE_START);
       add(panel, BorderLayout.CENTER);

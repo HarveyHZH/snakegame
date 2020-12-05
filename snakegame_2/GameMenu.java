@@ -39,7 +39,7 @@ class GameMenu extends JPanel {
    /**
     * Settings displayed set to false.
     */
-   private boolean settingsDisplayed = false;
+   private boolean settingsDisplayed = true;
 
    /**
     * Random number.
@@ -109,7 +109,7 @@ class GameMenu extends JPanel {
       int deltaX = height;
       Rectangle r = new Rectangle(0, 0, deltaX, height);
       settings.setBounds(r); 
-      settings.setIcon(settingsIcon);
+      settings.setIcon(backIcon);
       settings.setToolTipText("SETTINGS");
       settings.addMouseListener(new MouseAdapter() {
          @Override

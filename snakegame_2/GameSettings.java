@@ -33,7 +33,7 @@ class GameSettings extends JPanel {
    /**
     * Color names.
     */
-   private String[] colorNames = {"white", "red", "green", "blue", "orange", "pink", "yellow", "magenta"};
+   private String[] colorNames = {"white(default)", "red", "green", "blue", "orange", "pink", "yellow", "magenta"};
    /**
     * Some color options.
     */
@@ -104,7 +104,7 @@ class GameSettings extends JPanel {
       JLabel label = new JLabel("Difficulty");
       label.setFont(font);
       add(label);
-      String[] dif = {"extremely easy", "easy", "medium", "difficult", "extremely difficult"};
+      String[] dif = {"extremely easy", "easy", "medium(default)", "difficult", "extremely difficult"};
       int[] speeds = {300, 200, 100, 50, 25};
       JComboBox<String> box = new JComboBox<>(dif);
       box.setFont(font);
