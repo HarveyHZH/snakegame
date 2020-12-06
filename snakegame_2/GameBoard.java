@@ -50,7 +50,7 @@ class GameBoard extends JPanel {
    /**
     * Initial snake length set to 2.
     */
-   private int snakeLength = 2;
+   private int snakeLength;
 
    /**
     * x, y coordinates.
@@ -141,6 +141,7 @@ class GameBoard extends JPanel {
     * Initializes the snake.
     */
    private void initSnake() {
+      snakeLength = 2;
       int rows = (int) height / LENGTH;
       int cols = (int) width / LENGTH;
       int total = rows * cols; // make it sufficiently large

@@ -1,6 +1,0 @@
-menu:
-contains settings:
-   snake color
-   apple color
-   difficulty
-   sound effect?
