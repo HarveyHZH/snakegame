@@ -13,6 +13,12 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+/**
+ * 
+ * @author Zhihao Huang
+ * @since 12-06-2020
+ * @version 3.0
+ */
 class GameSettings extends JPanel {
    
    /**
