@@ -14,7 +14,8 @@ import java.awt.event.*;
 import javax.swing.*;
 
 /**
- * 
+ * <h1>{@code GamePanel}</h1>
+ * <p>This class contains the menu, board, and settings for the game.</p>
  * @author Zhihao Huang
  * @since 12-06-2020
  * @version 3.0
@@ -26,12 +27,24 @@ class GamePanel extends JPanel {
     */
    private static final long serialVersionUID = -5984978183740182249L;
 
+   /**
+    * Board.
+    */
    private GameBoard board;
 
+   /**
+    * Menu.
+    */
    private GameMenu menu;
 
+   /**
+    * Settings.
+    */
    private GameSettings settings;
    
+   /**
+    * Creates a panel with card layout.
+    */
    GamePanel() {
       setLayout(new CardLayout());
       menu = new GameMenu(this);
@@ -45,7 +58,15 @@ class GamePanel extends JPanel {
       showCard("menu");
    }
 
+   /**
+    * This class contains the key actions.
+    */
    private class KeyAction extends KeyAdapter {
+
+      /**
+       * Performs different actions according to conditions.
+       * @param ev Key event.
+       */
       @Override
       public void keyPressed(KeyEvent ev) {
          if(menu.isShowing()) { // Only works when menu is shown.
@@ -66,10 +87,16 @@ class GamePanel extends JPanel {
             }
          }else if(settings.isShowing()) { // Only works when settings is shown.
 
+            //
+
          }
       }
    }
 
+   /**
+    * Shows the designated card.
+    * @param card Name of card.
+    */
    void showCard(String card) {
       if(card.equals("menu") || card.equals("settings") || card.equals("board")) {
          if(!card.equals("board")) {

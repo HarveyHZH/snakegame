@@ -163,6 +163,10 @@ class GameMenu extends JPanel {
       drawBorder(g);
    }
 
+   /**
+    * Draws the border with the same color as the title.
+    * @param g Graphics.
+    */
    private void drawBorder(Graphics g) {
       g.setColor(color[0]);
       g.drawRect(0, 0, WIDTH - 1, HEIGHT - 1);
