@@ -26,13 +26,29 @@ class GameSettings extends JPanel {
     */
    private static final long serialVersionUID = -5391364145155397930L;
 
+   private final int WIDTH = GameWindow.WIDTH;
+
+   private final int HEIGHT = GameWindow.HEIGHT;
+
+   private GamePanel panel;
+
+   private JPanel display;
+
    GameSettings(GamePanel panel) {
-      setBackground(Color.green);
-      addMouseListener(new MouseAdapter() {
-         @Override
-         public void mousePressed(MouseEvent ev) {
-            panel.showCard("board");
-         }
-      });
+      this.panel = panel;
+      createTopBar();
+      createDisplay();
+   }
+
+   private void createTopBar() {
+      GameTopBar topBar = new GameTopBar(panel);
+      add(topBar, BorderLayout.PAGE_START);
+   }
+   
+   private void createDisplay() {
+      display = new JPanel();
+      display.setBackground(Color.black);
+      display.setPreferredSize(new Dimension(WIDTH, HEIGHT - 50));
+      add(display, BorderLayout.CENTER);
    }
 }

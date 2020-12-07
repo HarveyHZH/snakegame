@@ -54,5 +54,6 @@ class GameWindow extends JFrame {
       pack();
       setLocationRelativeTo(null);
       setVisible(true);
+      setFocusable(false);
    }
 }

@@ -32,12 +32,12 @@ class GameMenu extends JPanel {
    /**
     * The width inherited from the <code>GameWindow</code> class.
     */
-   private static final int WIDTH = (int) GameWindow.WIDTH;
+   private final int WIDTH = (int) GameWindow.WIDTH;
 
    /**
     * The height inherited from the <code>GameWindow</code> class.
     */
-   private static final int HEIGHT = (int) GameWindow.HEIGHT;
+   private final int HEIGHT = (int) GameWindow.HEIGHT;
 
    /**
     * The panel that stores different cards.
@@ -70,7 +70,7 @@ class GameMenu extends JPanel {
    }
 
    /**
-    * Uses a timer to alter colors.
+    * Uses a timer to alter the colors.
     * @param speed Speed of timer.
     */
    private void alterColor(int speed) {
@@ -100,12 +100,12 @@ class GameMenu extends JPanel {
    }
 
    /**
-    * This class contains mouse actions.
+    * This class contains the mouse actions.
     */
    private class MouseAction extends MouseAdapter {
 
       /**
-       * Mouse pressed.
+       * Changes the colors to white when mouse is pressed.
        * @param ev Mouse event.
        */
       @Override
@@ -121,7 +121,7 @@ class GameMenu extends JPanel {
       }
 
       /**
-       * Mouse exited.
+       * Reverts the colors when mouse is released.
        * @param ev Mouse Event.
        */
       @Override
@@ -133,7 +133,7 @@ class GameMenu extends JPanel {
       }
 
       /**
-       * Mouse clicked.
+       * Shows a different card or exit the program when mouse is clicked.
        * @param ev Mouse event.
        */
       @Override
@@ -163,7 +163,7 @@ class GameMenu extends JPanel {
    }
 
    /**
-    * Places the title "Snake" onto the menu.
+    * Places the components onto the menu.
     * @param g Graphics.
     */
    private void placeComponents(Graphics g, int fontSize, String str, int rect) {
