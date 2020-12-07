@@ -160,6 +160,12 @@ class GameMenu extends JPanel {
       placeComponents(g, 50, "<Start>", 1);
       placeComponents(g, 50, "<Settings>", 2);
       placeComponents(g, 50, "<Exit>", 3);
+      drawBorder(g);
+   }
+
+   private void drawBorder(Graphics g) {
+      g.setColor(color[0]);
+      g.drawRect(0, 0, WIDTH - 1, HEIGHT - 1);
    }
 
    /**

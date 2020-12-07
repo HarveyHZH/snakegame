@@ -48,13 +48,13 @@ class GamePanel extends JPanel {
    private class KeyAction extends KeyAdapter {
       @Override
       public void keyPressed(KeyEvent ev) {
-         if(menu.isShowing()) {
+         if(menu.isShowing()) { // Only works when menu is shown.
             if(ev.getKeyCode() == KeyEvent.VK_SPACE) {
                showCard("board");
             }else if(ev.getKeyCode() == KeyEvent.VK_ESCAPE) {
                System.exit(0);
-            }
-         }else if(board.isShowing()) {
+            } 
+         }else if(board.isShowing()) { // Only works when board is shown.
             if(ev.getKeyCode() == KeyEvent.VK_UP || ev.getKeyCode() == KeyEvent.VK_W) {
                board.changeDirection(GameBoard.Direction.UP);
             }else if(ev.getKeyCode() == KeyEvent.VK_DOWN || ev.getKeyCode() == KeyEvent.VK_S) {
@@ -64,7 +64,7 @@ class GamePanel extends JPanel {
             }else if(ev.getKeyCode() == KeyEvent.VK_RIGHT || ev.getKeyCode() == KeyEvent.VK_D) {
                board.changeDirection(GameBoard.Direction.RIGHT);
             }
-         }else if(settings.isShowing()) {
+         }else if(settings.isShowing()) { // Only works when settings is shown.
 
          }
       }
