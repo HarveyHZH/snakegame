@@ -110,6 +110,7 @@ class GameMenu extends JPanel {
        */
       @Override
       public void mousePressed(MouseEvent ev) {
+         setCursor(new Cursor(Cursor.HAND_CURSOR));
          Point point = ev.getPoint(); 
          for(int i = 1; i < 4; i++) {
             if(bound[i].contains(point)) {
@@ -126,6 +127,7 @@ class GameMenu extends JPanel {
        */
       @Override
       public void mouseReleased(MouseEvent ev) {
+         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
          for(int i = 1; i < 4; i++) {
             color[i] = Color.lightGray;
          }

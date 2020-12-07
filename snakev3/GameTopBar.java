@@ -49,7 +49,7 @@ class GameTopBar extends JPanel {
    GameTopBar(GamePanel panel) {
       this.panel = panel;
       setPreferredSize(new Dimension(WIDTH, HEIGHT));
-      setBackground(Color.white);
+      setBackground(Color.lightGray);
       setLayout(null);
       addLabel(true);
       addLabel(false);
@@ -66,9 +66,11 @@ class GameTopBar extends JPanel {
       if(isExit) { // Load exit labels.
          icon = new ImageIcon("icons/exit_button.jpg");
          iconHover = new ImageIcon("icons/exit_button_hover.jpg");
+         label.setToolTipText("Exit");
       }else { // Load menu labels.
          icon = new ImageIcon("icons/menu_button.jpg");
          iconHover = new ImageIcon("icons/menu_button_hover.jpg");
+         label.setToolTipText("Menu");
       }
       label.setIcon(icon);
       label.addMouseListener(new MouseAdapter() {
@@ -102,7 +104,24 @@ class GameTopBar extends JPanel {
             }else {
                panel.showCard("menu");
             }
-         
+         }
+
+         /**
+          * Changes cursor to hand.
+          * @param ev Mouse event.
+          */
+         @Override
+         public void mousePressed(MouseEvent ev) {
+            setCursor(new Cursor(Cursor.HAND_CURSOR));
+         }
+
+         /**
+          * Resets cursor to default.
+          * @param ev Mouse event.
+          */
+         @Override
+         public void mouseReleased(MouseEvent ev) {
+            setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
          }
       });
       Rectangle r;
@@ -131,7 +150,7 @@ class GameTopBar extends JPanel {
     */
    private void drawTitle(Graphics g) {
       g.setColor(Color.black);
-      g.setFont(new Font("MONOSPACED", Font.PLAIN, 75));
+      g.setFont(new Font("MONOSPACED", Font.PLAIN, 70));
       FontMetrics fm = g.getFontMetrics();
       String title = "Snake";
       int strWidth = fm.stringWidth(title);
