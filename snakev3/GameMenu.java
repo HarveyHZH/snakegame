@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020, Zhihao Huang, All rights reserved.
+ * Copyright (c) 2020, Zhihao Huang. All rights reserved.
  * 
  * 
  * 
@@ -110,10 +110,10 @@ class GameMenu extends JPanel {
        */
       @Override
       public void mousePressed(MouseEvent ev) {
-         setCursor(new Cursor(Cursor.HAND_CURSOR));
          Point point = ev.getPoint(); 
          for(int i = 1; i < 4; i++) {
             if(bound[i].contains(point)) {
+               setCursor(new Cursor(Cursor.HAND_CURSOR));
                color[i] = Color.white;
                repaint();
                break;
@@ -127,8 +127,8 @@ class GameMenu extends JPanel {
        */
       @Override
       public void mouseReleased(MouseEvent ev) {
-         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
          for(int i = 1; i < 4; i++) {
+            setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             color[i] = Color.lightGray;
          }
          repaint();

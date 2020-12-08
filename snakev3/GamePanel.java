@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020, Zhihao Huang, All rights reserved.
+ * Copyright (c) 2020, Zhihao Huang. All rights reserved.
  * 
  * 
  * 
@@ -77,13 +77,26 @@ class GamePanel extends JPanel {
             } 
          }else if(board.isShowing()) { // Only works when board is shown.
             if(ev.getKeyCode() == KeyEvent.VK_UP || ev.getKeyCode() == KeyEvent.VK_W) {
-               board.changeDirection(GameBoard.Direction.UP);
+               if(board.getDirection() != GameBoard.Direction.DOWN) {
+                  board.changeDirection(GameBoard.Direction.UP);
+               }
             }else if(ev.getKeyCode() == KeyEvent.VK_DOWN || ev.getKeyCode() == KeyEvent.VK_S) {
-               board.changeDirection(GameBoard.Direction.DOWN);
+               if(board.getDirection() != GameBoard.Direction.UP) {
+                  board.changeDirection(GameBoard.Direction.DOWN);
+               }
             }else if(ev.getKeyCode() == KeyEvent.VK_LEFT || ev.getKeyCode() == KeyEvent.VK_A) {
-               board.changeDirection(GameBoard.Direction.RIGHT);
+               if(board.getDirection() != GameBoard.Direction.RIGHT) {
+                  board.changeDirection(GameBoard.Direction.LEFT);
+               }
             }else if(ev.getKeyCode() == KeyEvent.VK_RIGHT || ev.getKeyCode() == KeyEvent.VK_D) {
-               board.changeDirection(GameBoard.Direction.RIGHT);
+               if(board.getDirection() != GameBoard.Direction.LEFT) {
+                  board.changeDirection(GameBoard.Direction.RIGHT);
+               }
+               //test
+            }else if(ev.getKeyCode() == KeyEvent.VK_K) {
+               board.restart();
+            }else if(ev.getKeyCode() == KeyEvent.VK_C) {
+               board.changeColor(0, Color.red);
             }
          }else if(settings.isShowing()) { // Only works when settings is shown.
 
@@ -100,9 +113,9 @@ class GamePanel extends JPanel {
    void showCard(String card) {
       if(card.equals("menu") || card.equals("settings") || card.equals("board")) {
          if(!card.equals("board")) {
-            board.stopTimer();
+            board.stopAnimation();
          }else {
-            board.startTimer();
+            board.startAnimation();
          }
          CardLayout cardLayout = (CardLayout) getLayout();
          cardLayout.show(this, card);

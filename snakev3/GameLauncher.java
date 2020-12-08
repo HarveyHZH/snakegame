@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020, Zhihao Huang, All rights reserved.
+ * Copyright (c) 2020, Zhihao Huang. All rights reserved.
  * 
  * 
  * 

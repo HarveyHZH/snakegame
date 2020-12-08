@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020, Zhihao Huang, All rights reserved.
+ * Copyright (c) 2020, Zhihao Huang. All rights reserved.
  * 
  * 
  * 
@@ -43,11 +43,17 @@ class GameTopBar extends JPanel {
    private GamePanel panel;
 
    /**
+    * Title of the top bar.
+    */
+   private String title;
+   
+   /**
     * Constructs a top bar.
     * @param panel Panel for showing cards.
     */
-   GameTopBar(GamePanel panel) {
+   GameTopBar(GamePanel panel, String title) {
       this.panel = panel;
+      this.title = title;
       setPreferredSize(new Dimension(WIDTH, HEIGHT));
       setBackground(Color.lightGray);
       setLayout(null);
@@ -114,11 +120,11 @@ class GameTopBar extends JPanel {
          public void mousePressed(MouseEvent ev) {
             setCursor(new Cursor(Cursor.HAND_CURSOR));
          }
-
-         /**
-          * Resets cursor to default.
-          * @param ev Mouse event.
-          */
+ 
+          /**
+           * Resets cursor to default.
+           * @param ev Mouse event.
+           */
          @Override
          public void mouseReleased(MouseEvent ev) {
             setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
@@ -150,9 +156,8 @@ class GameTopBar extends JPanel {
     */
    private void drawTitle(Graphics g) {
       g.setColor(Color.black);
-      g.setFont(new Font("MONOSPACED", Font.PLAIN, 70));
+      g.setFont(new Font("MONOSPACED", Font.PLAIN, 45));
       FontMetrics fm = g.getFontMetrics();
-      String title = "Snake";
       int strWidth = fm.stringWidth(title);
       int ascent = fm.getAscent();
       int x = WIDTH / 2 - strWidth / 2;

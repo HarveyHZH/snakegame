@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020, Zhihao Huang, All rights reserved.
+ * Copyright (c) 2020, Zhihao Huang. All rights reserved.
  * 
  * 
  * 
@@ -41,7 +41,7 @@ class GameSettings extends JPanel {
    }
 
    private void createTopBar() {
-      GameTopBar topBar = new GameTopBar(panel);
+      GameTopBar topBar = new GameTopBar(panel, "Settings");
       add(topBar, BorderLayout.PAGE_START);
    }
    
