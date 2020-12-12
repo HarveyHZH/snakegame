@@ -41,6 +41,16 @@ class GamePanel extends JPanel {
     * Settings.
     */
    private GameSettings settings;
+
+   /**
+    * Will be true once board is shown once.
+    */
+   private boolean boardShown = false;
+
+   /**
+    * Colors for the snake and apple.
+    */
+   private Color[] color = {Color.white, Color.red, Color.green, Color.blue, Color.orange, Color.pink, Color.yellow, Color.magenta};
    
    /**
     * Creates a panel with card layout.
@@ -69,12 +79,13 @@ class GamePanel extends JPanel {
        */
       @Override
       public void keyPressed(KeyEvent ev) {
+         if(ev.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            System.exit(0);
+         } 
          if(menu.isShowing()) { // Only works when menu is shown.
             if(ev.getKeyCode() == KeyEvent.VK_SPACE) {
                showCard("board");
-            }else if(ev.getKeyCode() == KeyEvent.VK_ESCAPE) {
-               System.exit(0);
-            } 
+            }
          }else if(board.isShowing()) { // Only works when board is shown.
             if(ev.getKeyCode() == KeyEvent.VK_UP || ev.getKeyCode() == KeyEvent.VK_W) {
                if(board.getDirection() != GameBoard.Direction.DOWN) {
@@ -92,16 +103,7 @@ class GamePanel extends JPanel {
                if(board.getDirection() != GameBoard.Direction.LEFT) {
                   board.changeDirection(GameBoard.Direction.RIGHT);
                }
-               //test
-            }else if(ev.getKeyCode() == KeyEvent.VK_K) {
-               board.restart();
-            }else if(ev.getKeyCode() == KeyEvent.VK_C) {
-               board.changeColor(0, Color.red);
             }
-         }else if(settings.isShowing()) { // Only works when settings is shown.
-
-            //
-
          }
       }
    }
@@ -115,6 +117,7 @@ class GamePanel extends JPanel {
          if(!card.equals("board")) {
             board.stopAnimation();
          }else {
+            boardShown = true;
             board.startAnimation();
          }
          CardLayout cardLayout = (CardLayout) getLayout();
@@ -123,4 +126,38 @@ class GamePanel extends JPanel {
          System.err.printf("error: %s is not applicable to showCard(String card).", card);
       }
    }
+
+   /**
+    * Test if game is active.
+    * @return True if game is active and vice versa.
+    */
+   boolean gameActive() {
+      return boardShown;
+   }
+
+   /**
+    * Changes the snake color according to the option number.
+    * @param n Option.
+    */
+   void changeSnakeColor(int n) {
+      board.changeColor(0, color[n]);
+   }
+
+   /**
+    * Changes the apple color according to the option number.
+    * @param n Option.
+    */
+   void changeAppleColor(int n) {
+      board.changeColor(1, color[n]);
+   }
+
+   /**
+    * Changes the difficulty according to the level.
+    * @param level Level.
+    */
+   void changeDifficulty(int level) {
+      int[] speed = {300, 200, 100, 50, 25};
+      board.changeSpeed(speed[level]);
+   }
 }
+

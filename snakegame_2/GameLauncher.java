@@ -35,11 +35,8 @@ public final class GameLauncher {
       });
    }
    
-   /**
-    * Executes the program.
-    * @param args Unused.
-    */
    public static void main(String[] args) {
       launch();
    }
+   
 }

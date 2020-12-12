@@ -10,6 +10,7 @@
 package snakev3;
 
 import java.awt.*;
+import java.awt.event.*;
 import java.util.*;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -40,16 +41,6 @@ class GameBoard extends JPanel {
    private Direction direction;
 
    /**
-    * Width inherited from <code>GameWindow</code>.
-    */
-   private final int WIDTH = GameWindow.WIDTH;
-
-   /**
-    * Height inherited from <code>GameWindow</code>.
-    */
-   private final int HEIGHT = GameWindow.HEIGHT;
-
-   /**
     * Length of a single snake block.
     */
    private final int LENGTH = 20;
@@ -65,9 +56,9 @@ class GameBoard extends JPanel {
    private int[] x, y;
 
    /**
-    * Colors of the snake, apple, background, and end.
+    * Colors of the snake, apple, background.
     */
-   private Color[] color = {Color.white, Color.red, Color.black, Color.black};
+   private Color[] color = {Color.white, Color.red};
 
    /**
     * Timer for animation.
@@ -107,7 +98,6 @@ class GameBoard extends JPanel {
       this.panel = panel;
       createTopBar();
       createDisplay();
-      System.out.println(HEIGHT);
    }
 
    /**
@@ -142,9 +132,14 @@ class GameBoard extends JPanel {
       private final int WIDTH = GameWindow.WIDTH;
 
       /**
-       * Height reduced by 62.
+       * Height reduced by 3 times the length.
        */
-      private final int HEIGHT = GameWindow.HEIGHT - 62;
+      private final int HEIGHT = GameWindow.HEIGHT - 3 * LENGTH;
+
+      /**
+       * If snake collides then end will be true.
+       */
+      private boolean end = false;
 
       /**
        * Creates a display area for the game.
@@ -153,7 +148,39 @@ class GameBoard extends JPanel {
          setBackground(Color.black);
          setPreferredSize(new Dimension(WIDTH, HEIGHT));
          initSnake();
-         generateRandom();
+         addMouseListener(new MouseAdapter() {
+
+            /**
+             * Changes the cursor.
+             * @param ev Mouse event.
+             */
+            @Override
+            public void mousePressed(MouseEvent ev) {
+               if(end) {
+                  setCursor(new Cursor(Cursor.HAND_CURSOR));
+               }
+            }
+
+            /**
+             * Changes the cursor.
+             * @param ev Mouse event.
+             */
+            @Override
+            public void mouseReleased(MouseEvent ev) {
+               setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            }
+
+            /**
+             * Restarts the game only if the game ended.
+             * @param ev Mouse event.
+             */
+            @Override
+            public void mouseClicked(MouseEvent ev) {
+               if(end) {         
+                  restart();
+               }
+            }
+         });
       }
 
       /**
@@ -163,10 +190,15 @@ class GameBoard extends JPanel {
       @Override
       public void paintComponent(Graphics g) {
          super.paintComponent(g);
-         displayResults(g);
-         drawSnake(g);
-         drawApple(g);
          drawBorder(g);
+         if(!end) {
+            drawSnake(g);
+            drawApple(g);
+         }else {
+            displayResult(g, 100, 0); // Game over.
+            displayResult(g, 35, 1); // Score.
+            displayResult(g, 35, 2); // Click to restart.
+         }
       }
 
       /**
@@ -175,30 +207,25 @@ class GameBoard extends JPanel {
        */
       private void drawBorder(Graphics g) {
          g.setColor(Color.white);
-         g.drawRect(0, 0, WIDTH - 1, HEIGHT);
+         g.drawRect(0, 0, WIDTH - 1, HEIGHT - 1);
       }
 
       /**
-       * Displays the results.
+       * Displays a result.
        * @param g Graphics.
        */
-      private void displayResults(Graphics g) {
-         g.setColor(color[3]);
-         g.setFont(new Font("MONOSPACED", Font.BOLD, 50));
-         String gameOver = "Game Over!";
-         String score = String.format("score: %d", snakeLength - 2);
+      private void displayResult(Graphics g, int font, int n) {
+         g.setColor(Color.lightGray);
+         g.setFont(new Font("MONOSPACED", Font.PLAIN, font));
+         String[] str = {"Game Over!", String.format("Score: %d", snakeLength - 2), "(Click Anyplace to Restart)"};
          FontMetrics fontMetrics = g.getFontMetrics();
-         int strWidth = fontMetrics.stringWidth(gameOver);
+         int strWidth = fontMetrics.stringWidth(str[n]);
          int ascent = fontMetrics.getAscent();
-         int messageX = WIDTH / 2 - strWidth / 2;
-         int messageY = HEIGHT / 3 + ascent / 2;
-         g.drawString(gameOver, messageX, messageY); // displays game over
-         g.setFont(new Font("MONOSPACED", Font.BOLD, 25));
-         fontMetrics = g.getFontMetrics();
-         strWidth = fontMetrics.stringWidth(score);
-         messageX = WIDTH / 2 - strWidth / 2;
-         messageY = HEIGHT / 2 + ascent / 2;
-         g.drawString(score, messageX, messageY); // display score
+         int x1 = WIDTH / 2 - strWidth / 2;
+         int oneThird = HEIGHT / 3 + ascent / 2;
+         int delta = ascent * 5;
+         int[] y1 = {oneThird, oneThird + delta, oneThird + 2 * delta};
+         g.drawString(str[n], x1, y1[n]);
       }
 
       /**
@@ -279,6 +306,7 @@ class GameBoard extends JPanel {
             y[i] = LENGTH;
          }
          startAnimation();
+         generateRandom();
       }
 
       /**
@@ -288,17 +316,7 @@ class GameBoard extends JPanel {
          @Override
          public void run() {
             if(isColliding()) { // test if snake is colliding.
-               color[0] = color[2];
-               color[1] = color[2];
-               color[3] = Color.white;
-               appleLocation[0] = 0;
-               appleLocation[1] = 0;
-               for(int i = 0; i < x.length; i++) {
-                  x[i] = 0;
-               }
-               for(int i = 0; i < y.length; i++) {
-                  y[i] = 0;
-               }
+               end = true;
                repaint();
                timer.cancel();
             }
@@ -354,7 +372,7 @@ class GameBoard extends JPanel {
       /**
        * Starts the timer.
        */
-      void startAnimation() {
+      private void startAnimation() {
          timer = new Timer();
          timer.schedule(new Task(), 0, speed);
       }
@@ -362,7 +380,7 @@ class GameBoard extends JPanel {
       /**
        * Stops the timer.
        */
-      void stopAnimation() {
+      private void stopAnimation() {
          if(timer != null) {
             timer.cancel();
          }
@@ -403,6 +421,7 @@ class GameBoard extends JPanel {
     * Restarts the game.
     */
    void restart() {
+      display.end = false;
       display.initSnake();
    }
 
@@ -411,14 +430,16 @@ class GameBoard extends JPanel {
     * @param n Option number.
     */
    void changeColor(int n, Color c) {
-      color[n] = c;
+      if(n < color.length) {
+         color[n] = c;
+      }
    }
 
    /**
     * Changes the difficulty by changing the speed.
     * @param speed Snake's speed.
     */
-   void changeDifficulty(int speed) {
-
+   void changeSpeed(int speed) {
+      this.speed = speed;
    }
 }

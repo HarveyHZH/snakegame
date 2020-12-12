@@ -159,7 +159,11 @@ class GameMenu extends JPanel {
    public void paintComponent(Graphics g) {
       super.paintComponent(g);
       placeComponents(g, 250, "Snake", 0);
-      placeComponents(g, 50, "<Start>", 1);
+      if(panel.gameActive()) {
+         placeComponents(g, 50, "<Resume>", 1);
+      }else {
+         placeComponents(g, 50, "<Start>", 1);
+      }
       placeComponents(g, 50, "<Settings>", 2);
       placeComponents(g, 50, "<Exit>", 3);
       drawBorder(g);

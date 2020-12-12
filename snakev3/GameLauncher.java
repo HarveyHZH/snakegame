@@ -33,10 +33,10 @@ public class GameLauncher {
    }
 
    /**
-    * Where the program is executed.
+    * Executes the program.
     * @param args Unused.
     */
-   public static void main(String[] args) {
+    public static void main(String[] args) {
       launch();
    }
 }
