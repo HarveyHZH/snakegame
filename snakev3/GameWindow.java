@@ -49,6 +49,7 @@ class GameWindow extends JFrame {
       setDefaultCloseOperation(EXIT_ON_CLOSE);
       setAlwaysOnTop(true);
       setUndecorated(true);
+      setIconImage(new ImageIcon("icons/snake_game_icon.jpg").getImage());
       GamePanel panel = new GamePanel();
       add(panel);
       pack();
